@@ -35,13 +35,25 @@ end-to-end scripts for training, evaluation, and prediction.
 ## Overview
 
 <p align="center">
-  <img src="assets/infrasegdb_taxonomy.png" alt="InfraSegDB taxonomy and benchmark statistics" width="100%">
+  <img src="assets/overview.png" alt="Overview of InfraSegDB and InfraSegFM" width="100%">
 </p>
 
 InfraSegFM is evaluated in the manuscript on InfraSegDB, a 179,094 image-mask
 benchmark curated from 40 datasets and six acquisition platforms. The public
 repository includes a synthetic mini benchmark for software verification; the
 full InfraSegDB benchmark is not bundled in this release.
+
+**Source provenance footprint**
+
+<p align="center">
+  <img src="assets/source_map.png" alt="Evidence-aware source provenance footprint of InfraSegDB" width="100%">
+</p>
+
+**Benchmark taxonomy and composition**
+
+<p align="center">
+  <img src="assets/infrasegdb_taxonomy.png" alt="InfraSegDB taxonomy and benchmark statistics" width="100%">
+</p>
 
 ## Results
 
