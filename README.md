@@ -2,78 +2,95 @@
 
 [![Python](https://img.shields.io/badge/python-3.9%2B-blue)](pyproject.toml)
 [![License: MIT](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
-[![SAM](https://img.shields.io/badge/backbone-SAM%20ViT--B-lightgrey)](https://github.com/facebookresearch/segment-anything)
+[![Backbone](https://img.shields.io/badge/backbone-SAM%20ViT--B-lightgrey)](https://github.com/facebookresearch/segment-anything)
 [![Model Card](https://img.shields.io/badge/model-card-informational)](MODEL_CARD.md)
 
-Official compact release of **InfraSegFM**, a SAM-based framework for
-open-world civil infrastructure defect segmentation.
-
-InfraSegFM freezes the SAM image and prompt encoders, then learns a
-metadata- and style-conditioned routed residual adapter together with the SAM
-mask decoder. The release is organized for paper review, reproducibility, and
-public GitHub distribution.
+Official implementation and release checkpoint for **InfraSegFM**, a
+SAM-based framework for open-world civil infrastructure defect segmentation.
 
 **Paper:** *A generalist foundation model and database for open-world civil infrastructure defect segmentation*
 
 **Authors:** Baoxian Li, Yuyang Bao, Si Chen, Mingwei Fang, Longsheng Bao,
 Jiakang Zhao, and Ling Yu
 
+InfraSegFM freezes the SAM image and prompt encoders, then learns
+metadata- and style-conditioned routed residual adapters together with the SAM
+mask decoder. The repository provides the public release code, the InfraSegFM
+ViT-B checkpoint, paper-default configuration, synthetic demo data, and
+end-to-end scripts for training, evaluation, and prediction.
+
 ## Highlights
 
-- Generalist defect segmentation for heterogeneous infrastructure imagery.
-- Single-checkpoint SAM ViT-B adaptation with routed residual MoE adapters.
-- Context conditioning from platform, asset hierarchy, task, source proxy, and
-  online visual style statistics.
-- Release checkpoint for InfraSegFM ViT-B.
-- Synthetic demo data and complete train/evaluate/predict scripts.
-- SAM source integration is documented; SAM weights are downloaded separately.
+- **Generalist infrastructure segmentation:** one checkpoint for heterogeneous
+  asset types, acquisition platforms, materials, and defect tasks.
+- **SAM-based parameter-efficient adaptation:** frozen SAM encoders with
+  trainable routed residual adapters and mask decoder weights.
+- **Metadata/style-conditioned routing:** platform, hierarchy, task, source
+  proxy, and online style statistics condition sparse expert selection.
+- **Reproducible release package:** checkpoint manifest, model card, citation
+  metadata, demo data, and train/evaluate/predict entry points.
+- **Clear third-party boundary:** SAM source integration is documented and SAM
+  weights are downloaded separately from the official Segment Anything release.
 
 ## Overview
 
 <p align="center">
-  <img src="assets/infrasegdb_taxonomy.png" alt="InfraSegDB taxonomy and benchmark statistics" width="95%">
+  <img src="assets/infrasegdb_taxonomy.png" alt="InfraSegDB taxonomy and benchmark statistics" width="100%">
 </p>
 
 InfraSegFM is evaluated in the manuscript on InfraSegDB, a 179,094 image-mask
-benchmark from 40 datasets and six acquisition platforms. The public repository
-contains a synthetic mini benchmark for software checks; the full benchmark
-dataset is not bundled.
+benchmark curated from 40 datasets and six acquisition platforms. The public
+repository includes a synthetic mini benchmark for software verification; the
+full InfraSegDB benchmark is not bundled in this release.
 
 ## Results
 
 Headline Dice scores reported in the manuscript:
 
-| Setting | InfraSegFM Dice | Notes |
+| Setting | InfraSegFM Dice | Evaluation focus |
 | --- | ---: | --- |
-| In-distribution | 0.7134 | All-task average |
-| CrossSite zero-shot | 0.7771 | Source/style transfer |
-| CrossTask zero-shot | 0.5955 | Task and appearance shift |
-| RealWorld zero-shot | 0.5420 | Field-like degraded imagery |
+| In-distribution | 0.7134 | All-task supervised benchmark |
+| CrossSite zero-shot | 0.7771 | Source and style transfer |
+| CrossTask zero-shot | 0.5955 | New task and appearance distributions |
+| RealWorld zero-shot | 0.5420 | Field-like noise, clutter, and degradation |
+
+**In-distribution benchmark**
 
 <p align="center">
-  <img src="assets/id_benchmark.png" alt="In-distribution benchmark results" width="95%">
+  <img src="assets/id_benchmark.png" alt="In-distribution benchmark results" width="100%">
 </p>
+
+**CrossSite transfer**
 
 <p align="center">
-  <img src="assets/crosssite_results.png" alt="CrossSite OOD results" width="47%">
-  <img src="assets/crosstask_results.png" alt="CrossTask OOD results" width="47%">
+  <img src="assets/crosssite_results.png" alt="CrossSite OOD results" width="100%">
 </p>
+
+**CrossTask transfer**
 
 <p align="center">
-  <img src="assets/realworld_results.png" alt="RealWorld OOD results" width="60%">
+  <img src="assets/crosstask_results.png" alt="CrossTask OOD results" width="100%">
 </p>
+
+**RealWorld evaluation**
 
 <p align="center">
-  <img src="assets/realworld_qualitative.png" alt="RealWorld qualitative comparison" width="72%">
+  <img src="assets/realworld_results.png" alt="RealWorld OOD results" width="100%">
 </p>
 
-## Repository Layout
+**Qualitative RealWorld comparison**
+
+<p align="center">
+  <img src="assets/realworld_qualitative.png" alt="RealWorld qualitative comparison" width="100%">
+</p>
+
+## Release Contents
 
 ```text
 InfraSegFM/
   assets/                         # README figures from the manuscript
   checkpoints/
-    infrasegfm_vit_b.pth          # InfraSegFM release checkpoint
+    infrasegfm_vit_b.pth          # InfraSegFM ViT-B release checkpoint
     manifest.json                 # size and SHA256 hash for the release checkpoint
   configs/
     paper_vit_b.json              # paper-default hyperparameters
@@ -81,12 +98,12 @@ InfraSegFM/
     manifest.csv                  # synthetic demo split/task manifest
     train/, val/                  # synthetic multi-task mini benchmark
   infrasegfm/
-    model.py                      # InfraSegFM and MoE adapter
+    model.py                      # InfraSegFM and routed MoE adapters
     build.py                      # model factories
     dataset.py                    # dataset loaders
     moe_preassign.py              # route-prior cache builder
     losses.py, metrics.py
-    segment_anything/             # lightly adapted SAM code
+    segment_anything/             # lightly adapted SAM source code
   tools/
     make_demo_dataset.py
     train.py
@@ -135,7 +152,7 @@ For CPU-only machines, install the official CPU build of PyTorch, then run
 
 ## Checkpoints
 
-This repository only redistributes the InfraSegFM release checkpoint:
+This repository redistributes the InfraSegFM release checkpoint only:
 
 ```text
 checkpoints/
@@ -143,8 +160,8 @@ checkpoints/
   manifest.json
 ```
 
-Download the SAM ViT-B checkpoint separately from Meta's official Segment
-Anything release location:
+Download the required SAM ViT-B checkpoint separately from Meta's official
+Segment Anything release:
 
 ```bash
 curl -L -o checkpoints/sam_vit_b_01ec64.pth \
@@ -174,15 +191,6 @@ sha256sum checkpoints/*.pth
 
 # Windows PowerShell
 Get-FileHash checkpoints\*.pth -Algorithm SHA256
-```
-
-The InfraSegFM checkpoint is larger than 50 MiB, so use Git LFS or a GitHub
-Release asset when publishing:
-
-```bash
-git lfs install
-git lfs track "*.pth"
-git add .gitattributes checkpoints/infrasegfm_vit_b.pth checkpoints/manifest.json
 ```
 
 ## Paper Defaults
@@ -406,12 +414,10 @@ runs/predict_my_images/masks/
 If your task is not in the taxonomy, add it to
 [infrasegfm/taxonomy.py](infrasegfm/taxonomy.py) first.
 
-## Compatibility With the Original Code
+## Compatibility
 
 This release is intentionally kept compatible with the original training and
-evaluation workflow.
-
-Use the release checkpoint with the original evaluator:
+evaluation workflow. Use the release checkpoint with the original evaluator:
 
 ```bash
 python evaluate_internal.py \
@@ -451,6 +457,14 @@ runs/
 private or full-scale datasets
 ```
 
+## Data Availability
+
+The full InfraSegDB benchmark is not included in this repository. This release
+provides the implementation, the InfraSegFM checkpoint, paper-default
+configuration, and a synthetic mini benchmark for reproducibility checks. Use
+`demo_data/` only to verify the software pipeline, not to report model
+performance.
+
 ## Third-party Code
 
 The files under [infrasegfm/segment_anything](infrasegfm/segment_anything) are
@@ -470,7 +484,7 @@ Apache-2.0 notice.
 
 ## Citation
 
-GitHub will render citation metadata from [CITATION.cff](CITATION.cff).
+GitHub renders citation metadata from [CITATION.cff](CITATION.cff).
 
 ```bibtex
 @misc{li2026infrasegfm,
