@@ -35,24 +35,31 @@ end-to-end scripts for training, evaluation, and prediction.
 ## Overview
 
 <p align="center">
-  <img src="assets/overview.png" alt="Overview of InfraSegDB and InfraSegFM" width="100%">
+  <a href="assets/overview.png">
+    <img src="assets/overview.png" alt="Overview of InfraSegDB and InfraSegFM" width="100%">
+  </a>
 </p>
 
 InfraSegFM is evaluated in the manuscript on InfraSegDB, a 179,094 image-mask
 benchmark curated from 40 datasets and six acquisition platforms. The public
 repository includes a synthetic mini benchmark for software verification; the
 full InfraSegDB benchmark is not bundled in this release.
+Click a figure to open the full-resolution image.
 
 **Source provenance footprint**
 
 <p align="center">
-  <img src="assets/source_map.png" alt="Evidence-aware source provenance footprint of InfraSegDB" width="100%">
+  <a href="assets/source_map.png">
+    <img src="assets/source_map.png" alt="Evidence-aware source provenance footprint of InfraSegDB" width="100%">
+  </a>
 </p>
 
 **Benchmark taxonomy and composition**
 
 <p align="center">
-  <img src="assets/infrasegdb_taxonomy.png" alt="InfraSegDB taxonomy and benchmark statistics" width="100%">
+  <a href="assets/infrasegdb_taxonomy.png">
+    <img src="assets/infrasegdb_taxonomy.png" alt="InfraSegDB taxonomy and benchmark statistics" width="100%">
+  </a>
 </p>
 
 ## Results
@@ -66,41 +73,15 @@ Headline Dice scores reported in the manuscript:
 | CrossTask zero-shot | 0.5955 | New task and appearance distributions |
 | RealWorld zero-shot | 0.5420 | Field-like noise, clutter, and degradation |
 
-**In-distribution benchmark**
-
-<p align="center">
-  <img src="assets/id_benchmark.png" alt="In-distribution benchmark results" width="100%">
-</p>
-
-**CrossSite transfer**
-
-<p align="center">
-  <img src="assets/crosssite_results.png" alt="CrossSite OOD results" width="100%">
-</p>
-
-**CrossTask transfer**
-
-<p align="center">
-  <img src="assets/crosstask_results.png" alt="CrossTask OOD results" width="100%">
-</p>
-
-**RealWorld evaluation**
-
-<p align="center">
-  <img src="assets/realworld_results.png" alt="RealWorld OOD results" width="100%">
-</p>
-
-**Qualitative RealWorld comparison**
-
-<p align="center">
-  <img src="assets/realworld_qualitative.png" alt="RealWorld qualitative comparison" width="100%">
-</p>
+Detailed experimental plots and qualitative comparisons are reported in the
+manuscript. The README keeps the result summary compact so the release page
+stays readable.
 
 ## Release Contents
 
 ```text
 InfraSegFM/
-  assets/                         # README figures from the manuscript
+  assets/                         # selected manuscript figures
   checkpoints/
     infrasegfm_vit_b.pth          # InfraSegFM ViT-B release checkpoint
     manifest.json                 # size and SHA256 hash for the release checkpoint
