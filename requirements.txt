@@ -1,0 +1,9 @@
+# Install torch and torchvision separately for your CUDA/CPU platform:
+# https://pytorch.org/get-started/locally/
+
+numpy>=1.23
+scipy>=1.9
+scikit-learn>=1.2
+opencv-python-headless>=4.7
+pillow>=9.0
+tqdm>=4.64

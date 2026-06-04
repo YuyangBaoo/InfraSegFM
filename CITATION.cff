@@ -1,0 +1,30 @@
+cff-version: 1.2.0
+message: "If you use InfraSegFM or the release checkpoint, please cite this work."
+title: "A generalist foundation model and database for open-world civil infrastructure defect segmentation"
+authors:
+  - family-names: Li
+    given-names: Baoxian
+    affiliation: "School of Transportation and Geomatics Engineering, Shenyang Jianzhu University"
+  - family-names: Bao
+    given-names: Yuyang
+    affiliation: "School of Transportation and Geomatics Engineering, Shenyang Jianzhu University"
+  - family-names: Chen
+    given-names: Si
+    affiliation: "School of Transportation and Geomatics Engineering, Shenyang Jianzhu University"
+  - family-names: Fang
+    given-names: Mingwei
+    affiliation: "School of Transportation and Geomatics Engineering, Shenyang Jianzhu University"
+  - family-names: Bao
+    given-names: Longsheng
+    affiliation: "School of Transportation and Geomatics Engineering, Shenyang Jianzhu University"
+  - family-names: Zhao
+    given-names: Jiakang
+    affiliation: "School of Civil Engineering, Inner Mongolia University of Science and Technology"
+  - family-names: Yu
+    given-names: Ling
+    affiliation: "School of Transportation and Geomatics Engineering, Shenyang Jianzhu University"
+version: "0.1.0"
+date-released: "2026-06-04"
+license: MIT
+repository-code: "https://github.com/YuyangBaoo/InfraSegFM"
+abstract: "InfraSegFM is a SAM-based framework for open-world civil infrastructure defect segmentation. It freezes SAM's image and prompt encoders and learns metadata- and style-conditioned routed residual adapters with the SAM mask decoder."

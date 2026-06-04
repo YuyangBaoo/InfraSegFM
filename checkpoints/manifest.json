@@ -1,0 +1,7 @@
+{
+  "infrasegfm_vit_b.pth": {
+    "bytes": 57606994,
+    "sha256": "A6712C32BC9CB46465A689388DE4E6A611FBB7188ECE45150DB932019751A618",
+    "description": "InfraSegFM ViT-B release checkpoint from the Full workflow"
+  }
+}
