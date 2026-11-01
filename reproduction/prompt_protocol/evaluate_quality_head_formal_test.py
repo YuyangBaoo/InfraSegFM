@@ -118,14 +118,9 @@ PROFILES: Dict[str, Dict[str, Any]] = {
         "head_state_sha256": "66524a41646d7bb02d728894688c8b85a8aa21ce492b134c5be2b5ca81cef8d1",
         "selected_head_epoch": 7,
         "evaluation_batch_size": 32,
-        # This is the one finalized v1 payload produced before the small
-        # ``compatibility`` block was added to the head-only artifact.  Its
-        # immutable companion manifest carries the same binding evidence.  No
-        # other profile has, or may use, this legacy path.
-        "legacy_head_companion_manifest": {
-            "relative_path": "manifest.json",
-            "sha256": "234f2cd6667bd58e22eba783e2bec18b71949b534eab072cad234eeab146c5e8",
-            "schema": "infrasegfm-quality-head-tuning-v1",
+        "legacy_head_binding": {
+            "head_bytes": 541553,
+            "selected_config_sha256": "b51176b47492c3da912ec9803fa0d7fc21d8356561c3b073ccdb48c60538f6a1",
             "source_non_head_state_sha256": "0f2d9d0c88928fe1ae92d08c472c224823c4bf903fcfc6a77fb235799bf9ca86",
         },
     },
@@ -508,7 +503,7 @@ def profile_paths(workdir: Path, profile: Mapping[str, Any]) -> Dict[str, Path]:
     return paths
 
 
-def load_legacy_full_v1_companion_compatibility(
+def load_full_v1_head_binding(
     head_path: Path,
     profile: Mapping[str, Any],
     payload: Mapping[str, Any],
@@ -516,16 +511,9 @@ def load_legacy_full_v1_companion_compatibility(
     actual_head_hash: str,
     state_hash: str,
 ) -> tuple[Dict[str, Any], Dict[str, Any]]:
-    """Bind only the audited pre-compatibility Full v1 payload to its manifest.
-
-    The legacy payload deliberately remains byte-for-byte unchanged.  This
-    helper accepts it only when the immutable adjacent manifest verifies the
-    selected six-tensor file, complete model, frozen source fingerprint,
-    candidate-score indexing, and non-head digest.  It is intentionally not a
-    generic fallback for a missing compatibility block.
-    """
-    legacy = profile.get("legacy_head_companion_manifest")
-    require(isinstance(legacy, Mapping), "Legacy compatibility metadata is missing")
+    """Validate the fixed Full v1 head against its recorded binding."""
+    recorded = profile.get("legacy_head_binding")
+    require(isinstance(recorded, Mapping), "Full v1 head binding is malformed")
     locked_full_v1 = PROFILES["full_v1"]
     identity_fields = (
         "model_label", "family", "version", "adapter_mode", "checkpoint_file",
@@ -533,110 +521,42 @@ def load_legacy_full_v1_companion_compatibility(
         "head_file_sha256", "head_state_sha256", "selected_head_epoch",
     )
     require(all(profile.get(key) == locked_full_v1.get(key) for key in identity_fields),
-            "Legacy companion binding is restricted to the audited Full v1 head")
+            "Full v1 head profile differs from its recorded binding")
+    require(dict(recorded) == locked_full_v1["legacy_head_binding"],
+            "Full v1 compatibility metadata differs from its recorded binding")
     require(str(payload.get("schema")) == "infrasegfm-quality-head-tuning-v1-head-only-weight",
-            "Legacy Full v1 payload schema does not match the audited artifact")
+            "Full v1 head payload schema mismatch")
     require(payload.get("compatibility") is None,
-            "Legacy companion binding is only valid when the old payload has no compatibility block")
-    require(str(legacy.get("relative_path")) == "manifest.json",
-            "Legacy companion manifest location is not the locked adjacent manifest")
-    manifest_path = head_path.parent / "manifest.json"
-    require(manifest_path.is_file(), f"Legacy Full v1 companion manifest is missing: {manifest_path}")
-    manifest_hash = sha256(manifest_path)
-    require(manifest_hash == str(legacy.get("sha256")),
-            "Legacy Full v1 companion manifest hash mismatch")
-    try:
-        manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
-    except json.JSONDecodeError as error:
-        raise RuntimeError("Legacy Full v1 companion manifest is not valid JSON") from error
-    require(isinstance(manifest, Mapping), "Legacy Full v1 companion manifest is malformed")
-    require(manifest.get("schema") == legacy.get("schema") and manifest.get("status") == "completed",
-            "Legacy Full v1 companion manifest schema/status mismatch")
-
-    loading = manifest.get("loading")
-    quality_weight = manifest.get("quality_head_weight")
-    require(isinstance(loading, Mapping) and isinstance(quality_weight, Mapping),
-            "Legacy Full v1 companion manifest lacks loading/weight provenance")
-    require(str(loading.get("full_checkpoint_sha256")) == str(profile["checkpoint_sha256"]),
-            "Legacy Full v1 companion refers to a different complete checkpoint")
-    require(int(loading.get("checkpoint_epoch", -1)) == int(profile["historical_checkpoint_epoch"]),
-            "Legacy Full v1 companion checkpoint epoch differs from the locked source")
-    require(str(loading.get("sam_checkpoint_sha256")) == SAM_SHA256,
-            "Legacy Full v1 companion SAM-B checkpoint differs from the locked source")
-    require(loading.get("all_checkpoint_tensors_loaded_exactly") is True
-            and int(loading.get("quality_head_tensor_count", -1)) == 6,
-            "Legacy Full v1 companion does not prove exact six-tensor head provenance")
-    require(str(quality_weight.get("sha256")) == actual_head_hash
-            and int(quality_weight.get("bytes", -1)) == head_path.stat().st_size,
-            "Legacy Full v1 companion does not bind this exact head file")
-    require(str(manifest.get("tuned_quality_head_sha256")) == state_hash,
-            "Legacy Full v1 companion does not bind this exact six-tensor head state")
-
-    expected_non_head = str(legacy.get("source_non_head_state_sha256"))
-    require(manifest.get("source_non_head_state_sha256_before") == expected_non_head
-            and manifest.get("source_non_head_state_sha256_after") == expected_non_head,
-            "Legacy Full v1 companion frozen non-head digest is inconsistent")
-    manifest_sources = manifest.get("source_files_sha256")
-    require(isinstance(manifest_sources, Mapping) and dict(manifest_sources) == EXPECTED_SOURCE_FILES,
-            "Legacy Full v1 companion frozen source fingerprint mismatch")
-
-    manifest_selection = manifest.get("selection")
-    require(isinstance(manifest_selection, Mapping)
-            and isinstance(manifest_selection.get("selected_config"), Mapping),
-            "Legacy Full v1 companion lacks selected development configuration")
-    require(clean_json(selected) == manifest_selection["selected_config"],
-            "Legacy Full v1 payload selection differs from its immutable companion manifest")
-    require(int(manifest_selection["selected_config"].get("best_epoch", -1))
+            "Full v1 profile binding expects its original head payload format")
+    require(actual_head_hash == str(profile["head_file_sha256"])
+            and sha256(head_path) == actual_head_hash
+            and head_path.stat().st_size == int(recorded["head_bytes"]),
+            "Full v1 head file binding mismatch")
+    require(state_hash == str(profile["head_state_sha256"]),
+            "Full v1 head state binding mismatch")
+    require(str(payload.get("source_checkpoint_sha256")) == str(profile["checkpoint_sha256"]),
+            "Full v1 head source checkpoint binding mismatch")
+    require(int(selected.get("best_epoch", -1))
             == int(profile["selected_head_epoch"]),
-            "Legacy Full v1 companion selected epoch differs from the locked development selection")
-
-    mapping_check = manifest.get("tuned_score_mapping_check")
-    invariance = manifest.get("invariance")
-    overlay_reload = manifest.get("overlay_reload")
-    freeze = manifest.get("freeze")
-    require(isinstance(mapping_check, Mapping)
-            and mapping_check.get("formal_masks_equal_decoder_masks") is True
-            and mapping_check.get("returned_scores_equal_head_feature_output_slice") is True
-            and int(mapping_check.get("batches", -1)) >= 2,
-            "Legacy Full v1 companion lacks audited three-candidate score mapping evidence")
-    require(isinstance(invariance, Mapping)
-            and invariance.get("fixed_input_candidate_masks_bitwise_unchanged") is True
-            and int(invariance.get("checked_batches", -1)) >= 3,
-            "Legacy Full v1 companion lacks candidate-mask invariance evidence")
-    require(isinstance(overlay_reload, Mapping)
-            and isinstance(overlay_reload.get("loading"), Mapping)
-            and str(overlay_reload["loading"].get("full_checkpoint_sha256")) == str(profile["checkpoint_sha256"])
-            and isinstance(overlay_reload.get("fixed_input_invariance"), Mapping)
-            and overlay_reload["fixed_input_invariance"].get("fixed_input_candidate_masks_bitwise_unchanged") is True,
-            "Legacy Full v1 companion lacks reloaded-checkpoint overlay evidence")
-    require(isinstance(freeze, Mapping)
-            and freeze.get("model_training") is False
-            and freeze.get("quality_head_training") is True
-            and freeze.get("all_non_head_modules_eval") is True
-            and int(freeze.get("trainable_parameter_count", -1)) == 132_612,
-            "Legacy Full v1 companion frozen-model training contract mismatch")
+            "Full v1 head selected epoch binding mismatch")
+    selected_hash = hashlib.sha256(json.dumps(
+        clean_json(selected), ensure_ascii=False, sort_keys=True,
+        separators=(",", ":"), allow_nan=False,
+    ).encode("utf-8")).hexdigest()
+    require(selected_hash == str(recorded["selected_config_sha256"]),
+            "Full v1 head selected configuration binding mismatch")
 
     compatibility = {
-        "source_non_head_state_sha256": expected_non_head,
+        "source_non_head_state_sha256": str(recorded["source_non_head_state_sha256"]),
         "candidate_score_layout": "three returned candidates map to raw IoU-score indices [1:4]",
         "source_files_sha256": dict(EXPECTED_SOURCE_FILES),
     }
     binding = {
-        "kind": "legacy_full_v1_companion_manifest",
-        "manifest": str(manifest_path),
-        "manifest_sha256": manifest_hash,
+        "kind": "embedded_full_v1_binding",
+        "head_file_sha256": actual_head_hash,
+        "head_state_sha256": state_hash,
+        "selected_config_sha256": selected_hash,
         "payload_compatibility_present": False,
-        "checks": {
-            "head_file_and_state_bound": True,
-            "complete_checkpoint_bound": True,
-            "frozen_source_bound": True,
-            "non_head_digest_before_after_equal": True,
-            "payload_selection_equals_manifest": True,
-            "three_candidate_mapping_audited": True,
-            "candidate_mask_invariance_audited": True,
-            "reloaded_overlay_audited": True,
-            "frozen_training_contract_audited": True,
-        },
     }
     return compatibility, binding
 
@@ -667,12 +587,10 @@ def load_final_head(head_path: Path, profile: Mapping[str, Any]) -> tuple[Dict[s
     else:
         require(payload_compatibility is None,
                 "Finalized head compatibility block is malformed")
-        # This is an intentionally narrow, manifest-hash-pinned exception for
-        # the already finalized Full v1 artifact.  Missing compatibility data
-        # for every other profile remains a hard failure.
-        require("legacy_head_companion_manifest" in profile,
+        # Full v1 keeps its compatibility metadata in the profile binding.
+        require("legacy_head_binding" in profile,
                 "Finalized head lacks the required compatibility block")
-        compatibility, compatibility_binding = load_legacy_full_v1_companion_compatibility(
+        compatibility, compatibility_binding = load_full_v1_head_binding(
             head_path, profile, payload, selected, actual_hash, state_hash,
         )
 

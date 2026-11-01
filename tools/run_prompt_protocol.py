@@ -12,10 +12,11 @@ from pathlib import Path
 import subprocess
 import sys
 
+from _prompt_profiles import CONFIG
+
 ROOT = Path(__file__).resolve().parents[1]
 PROTOCOL = ROOT / "reproduction" / "prompt_protocol"
 RUNTIME = ROOT / "reproduction" / "prompt_runtime"
-CONFIG = ROOT / "configs" / "prompt_protocol_profiles.json"
 
 
 def digest(path: Path) -> str:
@@ -52,9 +53,6 @@ def model_assets(config: dict, profiles: list[str]) -> list[dict]:
             {"path": "inputs/models/" + profile["checkpoint_file"], "sha256": profile["checkpoint_sha256"]},
             {"path": "inputs/heads/" + profile["head_file"], "sha256": profile["head_file_sha256"]},
         ])
-        companion = profile.get("legacy_head_companion_manifest")
-        if companion:
-            items.append({"path": "inputs/heads/full_v1/" + companion["relative_path"], "sha256": companion["sha256"]})
     items.extend(config["runtime_compatibility_assets"])
     return items
 
@@ -77,7 +75,7 @@ def parse_args() -> tuple[argparse.ArgumentParser, argparse.Namespace]:
 
 def main() -> int:
     parser, args = parse_args()
-    config = json.loads(CONFIG.read_text(encoding="utf-8"))
+    config = CONFIG
     if args.mode == "profiles":
         print(json.dumps(config, indent=2))
         return 0

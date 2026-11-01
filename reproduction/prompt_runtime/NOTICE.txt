@@ -1,2 +1,0 @@
-Frozen InfraSegFM experiment runtime. InfraSegFM-specific code follows the repository MIT license.
-Segment Anything source is Copyright Meta Platforms, Inc. and affiliates and uses Apache-2.0; see segment_anything/LICENSE.
