@@ -1,0 +1,100 @@
+scope,model,model_display,version,setting,reported_run_number,reported_seed,archived_seed,archived_seed_status,archived_run_id,source_csv,source_table,mapping_key
+repeated_source_training,Full,Full,v1,ID,1,26091600,,unrecorded,historical_run_1,02_main_3runs/02_Run_Results.csv,S27,Full | ID | historical_run_1
+repeated_source_training,Full,Full,v1,ID,2,26091601,26091601,recorded,seed_26091601,02_main_3runs/02_Run_Results.csv,S27,Full | ID | seed_26091601
+repeated_source_training,Full,Full,v1,ID,3,26091602,26091602,recorded,seed_26091602,02_main_3runs/02_Run_Results.csv,S27,Full | ID | seed_26091602
+repeated_source_training,Shared,Shared,v1,ID,1,26091600,,unrecorded,historical_run_1,02_main_3runs/02_Run_Results.csv,S27,Shared | ID | historical_run_1
+repeated_source_training,Shared,Shared,v1,ID,2,26091601,26091601,recorded,seed_26091601,02_main_3runs/02_Run_Results.csv,S27,Shared | ID | seed_26091601
+repeated_source_training,Shared,Shared,v1,ID,3,26091602,26091602,recorded,seed_26091602,02_main_3runs/02_Run_Results.csv,S27,Shared | ID | seed_26091602
+repeated_source_training,NoRoutePrior,w/o Route Prior,v1,ID,1,26091600,,unrecorded,historical_run_1,02_main_3runs/02_Run_Results.csv,S27,NoRoutePrior | ID | historical_run_1
+repeated_source_training,NoRoutePrior,w/o Route Prior,v1,ID,2,26091601,26091601,recorded,seed_26091601,02_main_3runs/02_Run_Results.csv,S27,NoRoutePrior | ID | seed_26091601
+repeated_source_training,NoRoutePrior,w/o Route Prior,v1,ID,3,26091602,26091602,recorded,seed_26091602,02_main_3runs/02_Run_Results.csv,S27,NoRoutePrior | ID | seed_26091602
+repeated_source_training,NoStyle,w/o Style,v1,ID,1,26091600,,unrecorded,historical_run_1,02_main_3runs/02_Run_Results.csv,S27,NoStyle | ID | historical_run_1
+repeated_source_training,NoStyle,w/o Style,v1,ID,2,26091601,26091601,recorded,seed_26091601,02_main_3runs/02_Run_Results.csv,S27,NoStyle | ID | seed_26091601
+repeated_source_training,NoStyle,w/o Style,v1,ID,3,26091602,26091602,recorded,seed_26091602,02_main_3runs/02_Run_Results.csv,S27,NoStyle | ID | seed_26091602
+repeated_source_training,NoSynBridgeCrack,w/o SynBridge,v1,ID,1,26091600,,unrecorded,historical_run_1,02_main_3runs/02_Run_Results.csv,S27,NoSynBridgeCrack | ID | historical_run_1
+repeated_source_training,NoSynBridgeCrack,w/o SynBridge,v1,ID,2,26091601,26091601,recorded,seed_26091601,02_main_3runs/02_Run_Results.csv,S27,NoSynBridgeCrack | ID | seed_26091601
+repeated_source_training,NoSynBridgeCrack,w/o SynBridge,v1,ID,3,26091602,26091602,recorded,seed_26091602,02_main_3runs/02_Run_Results.csv,S27,NoSynBridgeCrack | ID | seed_26091602
+repeated_source_training,MedSA,Med-SA,,ID,1,26091600,,,legacy/MedSA,01_baseline/02_Run_Results.csv,S27,MedSA | ID | legacy/MedSA
+repeated_source_training,MedSA,Med-SA,,ID,3,26091602,26091602,,MedSA/seed_26091602/eval_ID_0,01_baseline/02_Run_Results.csv,S27,MedSA | ID | MedSA/seed_26091602/eval_ID_0
+repeated_source_training,MedSA,Med-SA,,ID,2,26091601,26091601,,MedSA/seed_26091601/eval_ID_0,01_baseline/02_Run_Results.csv,S27,MedSA | ID | MedSA/seed_26091601/eval_ID_0
+repeated_source_training,SAMLoRA,SAM-LoRA,,ID,1,26091600,,,legacy/SAMLoRA,01_baseline/02_Run_Results.csv,S27,SAMLoRA | ID | legacy/SAMLoRA
+repeated_source_training,SAMLoRA,SAM-LoRA,,ID,2,26091601,26091601,,SAMLoRA/seed_26091601/eval_ID_0,01_baseline/02_Run_Results.csv,S27,SAMLoRA | ID | SAMLoRA/seed_26091601/eval_ID_0
+repeated_source_training,SAMLoRA,SAM-LoRA,,ID,3,26091602,26091602,,SAMLoRA/seed_26091602/eval_ID_0,01_baseline/02_Run_Results.csv,S27,SAMLoRA | ID | SAMLoRA/seed_26091602/eval_ID_0
+repeated_source_training,SAM-Adapter,SAM-Adapter,,ID,1,26091600,,,legacy/SAM-Adapter,01_baseline/02_Run_Results.csv,S27,SAM-Adapter | ID | legacy/SAM-Adapter
+repeated_source_training,SAM-Adapter,SAM-Adapter,,ID,2,26091601,26091601,,SAM-Adapter/seed_26091601/eval_ID_0,01_baseline/02_Run_Results.csv,S27,SAM-Adapter | ID | SAM-Adapter/seed_26091601/eval_ID_0
+repeated_source_training,SAM-Adapter,SAM-Adapter,,ID,3,26091602,26091602,,SAM-Adapter/seed_26091602/eval_ID_0,01_baseline/02_Run_Results.csv,S27,SAM-Adapter | ID | SAM-Adapter/seed_26091602/eval_ID_0
+repeated_source_training,SAM2-UNet,SAM2-UNet,,ID,1,26091600,,,legacy/SAM2-UNet,01_baseline/02_Run_Results.csv,S27,SAM2-UNet | ID | legacy/SAM2-UNet
+repeated_source_training,SAM2-UNet,SAM2-UNet,,ID,2,26091601,26091601,,SAM2-UNet/seed_26091601/eval_ID_0,01_baseline/02_Run_Results.csv,S27,SAM2-UNet | ID | SAM2-UNet/seed_26091601/eval_ID_0
+repeated_source_training,SAM2-UNet,SAM2-UNet,,ID,3,26091602,26091602,,SAM2-UNet/seed_26091602/eval_ID_0,01_baseline/02_Run_Results.csv,S27,SAM2-UNet | ID | SAM2-UNet/seed_26091602/eval_ID_0
+repeated_source_training,MedSegX,MedSegX,,ID,1,26091600,26091601,,MedSegX/seed_26091601/eval_ID_0,01_baseline/02_Run_Results.csv,S27,MedSegX | ID | MedSegX/seed_26091601/eval_ID_0
+repeated_source_training,MedSegX,MedSegX,,ID,2,26091601,26091602,,MedSegX/seed_26091602/eval_ID_0,01_baseline/02_Run_Results.csv,S27,MedSegX | ID | MedSegX/seed_26091602/eval_ID_0
+repeated_source_training,MedSegX,MedSegX,,ID,3,26091602,26091603,,MedSegX/seed_26091603/eval_ID_0,01_baseline/02_Run_Results.csv,S27,MedSegX | ID | MedSegX/seed_26091603/eval_ID_0
+repeated_source_training,MoE-SAM,MoE-SAM,,ID,2,26091601,26091602,,MoE-SAM/seed_26091602/eval_ID_0,01_baseline/02_Run_Results.csv,S27,MoE-SAM | ID | MoE-SAM/seed_26091602/eval_ID_0
+repeated_source_training,MoE-SAM,MoE-SAM,,ID,3,26091602,26091603,,MoE-SAM/seed_26091603/eval_ID_0,01_baseline/02_Run_Results.csv,S27,MoE-SAM | ID | MoE-SAM/seed_26091603/eval_ID_0
+repeated_source_training,MoE-SAM,MoE-SAM,,ID,1,26091600,26091601,,imported/moe_direct/MoE-SAM/seed_26091601/eval_ID_0/269e42c7ea0c,01_baseline/02_Run_Results.csv,S27,MoE-SAM | ID | imported/moe_direct/MoE-SAM/seed_26091601/eval_ID_0/269e42c7ea0c
+repeated_source_training,unet,U-Net,,ID,1,26091600,2026,,legacy/unet,01_baseline/02_Run_Results.csv,S27,unet | ID | legacy/unet
+repeated_source_training,unet,U-Net,,ID,2,26091601,26091601,,unet/seed_26091601/eval_ID_0,01_baseline/02_Run_Results.csv,S27,unet | ID | unet/seed_26091601/eval_ID_0
+repeated_source_training,unet,U-Net,,ID,3,26091602,26091602,,unet/seed_26091602/eval_ID_0,01_baseline/02_Run_Results.csv,S27,unet | ID | unet/seed_26091602/eval_ID_0
+repeated_source_training,unetpp,U-Net++,,ID,1,26091600,2026,,legacy/unetpp,01_baseline/02_Run_Results.csv,S27,unetpp | ID | legacy/unetpp
+repeated_source_training,unetpp,U-Net++,,ID,2,26091601,26091601,,unetpp/seed_26091601/eval_ID_0,01_baseline/02_Run_Results.csv,S27,unetpp | ID | unetpp/seed_26091601/eval_ID_0
+repeated_source_training,unetpp,U-Net++,,ID,3,26091602,26091602,,unetpp/seed_26091602/eval_ID_0,01_baseline/02_Run_Results.csv,S27,unetpp | ID | unetpp/seed_26091602/eval_ID_0
+repeated_source_training,deeplabv3,DeepLabV3,,ID,1,26091600,2026,,legacy/deeplabv3,01_baseline/02_Run_Results.csv,S27,deeplabv3 | ID | legacy/deeplabv3
+repeated_source_training,deeplabv3,DeepLabV3,,ID,2,26091601,26091601,,deeplabv3/seed_26091601/eval_ID_0,01_baseline/02_Run_Results.csv,S27,deeplabv3 | ID | deeplabv3/seed_26091601/eval_ID_0
+repeated_source_training,deeplabv3,DeepLabV3,,ID,3,26091602,26091602,,deeplabv3/seed_26091602/eval_ID_0,01_baseline/02_Run_Results.csv,S27,deeplabv3 | ID | deeplabv3/seed_26091602/eval_ID_0
+repeated_source_training,deeplabv3plus,DeepLabV3+,,ID,1,26091600,2026,,legacy/deeplabv3plus,01_baseline/02_Run_Results.csv,S27,deeplabv3plus | ID | legacy/deeplabv3plus
+repeated_source_training,deeplabv3plus,DeepLabV3+,,ID,2,26091601,26091601,,deeplabv3plus/seed_26091601/eval_ID_0,01_baseline/02_Run_Results.csv,S27,deeplabv3plus | ID | deeplabv3plus/seed_26091601/eval_ID_0
+repeated_source_training,deeplabv3plus,DeepLabV3+,,ID,3,26091602,26091602,,deeplabv3plus/seed_26091602/eval_ID_0,01_baseline/02_Run_Results.csv,S27,deeplabv3plus | ID | deeplabv3plus/seed_26091602/eval_ID_0
+repeated_source_training,fpn,FPN,,ID,1,26091600,2026,,legacy/fpn,01_baseline/02_Run_Results.csv,S27,fpn | ID | legacy/fpn
+repeated_source_training,fpn,FPN,,ID,2,26091601,26091601,,fpn/seed_26091601/eval_ID_0,01_baseline/02_Run_Results.csv,S27,fpn | ID | fpn/seed_26091601/eval_ID_0
+repeated_source_training,fpn,FPN,,ID,3,26091602,26091602,,fpn/seed_26091602/eval_ID_0,01_baseline/02_Run_Results.csv,S27,fpn | ID | fpn/seed_26091602/eval_ID_0
+repeated_source_training,linknet,LinkNet,,ID,1,26091600,2026,,legacy/linknet,01_baseline/02_Run_Results.csv,S27,linknet | ID | legacy/linknet
+repeated_source_training,linknet,LinkNet,,ID,2,26091601,26091601,,linknet/seed_26091601/eval_ID_0,01_baseline/02_Run_Results.csv,S27,linknet | ID | linknet/seed_26091601/eval_ID_0
+repeated_source_training,linknet,LinkNet,,ID,3,26091602,26091602,,linknet/seed_26091602/eval_ID_0,01_baseline/02_Run_Results.csv,S27,linknet | ID | linknet/seed_26091602/eval_ID_0
+repeated_source_training,manet,MAnet,,ID,1,26091600,2026,,legacy/manet,01_baseline/02_Run_Results.csv,S27,manet | ID | legacy/manet
+repeated_source_training,manet,MAnet,,ID,2,26091601,26091601,,manet/seed_26091601/eval_ID_0,01_baseline/02_Run_Results.csv,S27,manet | ID | manet/seed_26091601/eval_ID_0
+repeated_source_training,manet,MAnet,,ID,3,26091602,26091602,,manet/seed_26091602/eval_ID_0,01_baseline/02_Run_Results.csv,S27,manet | ID | manet/seed_26091602/eval_ID_0
+repeated_source_training,pan,PAN,,ID,1,26091600,2026,,legacy/pan,01_baseline/02_Run_Results.csv,S27,pan | ID | legacy/pan
+repeated_source_training,pan,PAN,,ID,2,26091601,26091601,,pan/seed_26091601/eval_ID_0,01_baseline/02_Run_Results.csv,S27,pan | ID | pan/seed_26091601/eval_ID_0
+repeated_source_training,pan,PAN,,ID,3,26091602,26091602,,pan/seed_26091602/eval_ID_0,01_baseline/02_Run_Results.csv,S27,pan | ID | pan/seed_26091602/eval_ID_0
+repeated_source_training,pspnet,PSPNet,,ID,1,26091600,2026,,legacy/pspnet,01_baseline/02_Run_Results.csv,S27,pspnet | ID | legacy/pspnet
+repeated_source_training,pspnet,PSPNet,,ID,2,26091601,26091601,,pspnet/seed_26091601/eval_ID_0,01_baseline/02_Run_Results.csv,S27,pspnet | ID | pspnet/seed_26091601/eval_ID_0
+repeated_source_training,pspnet,PSPNet,,ID,3,26091602,26091602,,pspnet/seed_26091602/eval_ID_0,01_baseline/02_Run_Results.csv,S27,pspnet | ID | pspnet/seed_26091602/eval_ID_0
+repeated_source_training,segformer,SegFormer,,ID,1,26091600,42,,legacy/segformer,01_baseline/02_Run_Results.csv,S27,segformer | ID | legacy/segformer
+repeated_source_training,segformer,SegFormer,,ID,2,26091601,26091601,,segformer/seed_26091601/eval_ID_0,01_baseline/02_Run_Results.csv,S27,segformer | ID | segformer/seed_26091601/eval_ID_0
+repeated_source_training,segformer,SegFormer,,ID,3,26091602,26091602,,segformer/seed_26091602/eval_ID_0,01_baseline/02_Run_Results.csv,S27,segformer | ID | segformer/seed_26091602/eval_ID_0
+source_training_timing_record,Full,Full,v1,source,2,26091601,26091601,,outputs/Full/seed_26091601/source_v1/job.json,03_inference_routing/23_Source_Training_Times.csv,S25,Full | v1 | outputs/Full/seed_26091601/source_v1/job.json
+source_training_timing_record,Full,Full,v2,source,2,26091601,26091601,,outputs/Full/seed_26091601/source_v2/job.json,03_inference_routing/23_Source_Training_Times.csv,S25,Full | v2 | outputs/Full/seed_26091601/source_v2/job.json
+source_training_timing_record,Full,Full,v1,source,3,26091602,26091602,,outputs/Full/seed_26091602/source_v1/job.json,03_inference_routing/23_Source_Training_Times.csv,S25,Full | v1 | outputs/Full/seed_26091602/source_v1/job.json
+source_training_timing_record,Full,Full,v2,source,3,26091602,26091602,,outputs/Full/seed_26091602/source_v2/job.json,03_inference_routing/23_Source_Training_Times.csv,S25,Full | v2 | outputs/Full/seed_26091602/source_v2/job.json
+source_training_timing_record,Shared,Shared,v1,source,2,26091601,26091601,,outputs/Shared/seed_26091601/source_v1/job.json,03_inference_routing/23_Source_Training_Times.csv,S25,Shared | v1 | outputs/Shared/seed_26091601/source_v1/job.json
+source_training_timing_record,Shared,Shared,v2,source,2,26091601,26091601,,outputs/Shared/seed_26091601/source_v2/job.json,03_inference_routing/23_Source_Training_Times.csv,S25,Shared | v2 | outputs/Shared/seed_26091601/source_v2/job.json
+source_training_timing_record,Shared,Shared,v1,source,3,26091602,26091602,,outputs/Shared/seed_26091602/source_v1/job.json,03_inference_routing/23_Source_Training_Times.csv,S25,Shared | v1 | outputs/Shared/seed_26091602/source_v1/job.json
+source_training_timing_record,Shared,Shared,v2,source,3,26091602,26091602,,outputs/Shared/seed_26091602/source_v2/job.json,03_inference_routing/23_Source_Training_Times.csv,S25,Shared | v2 | outputs/Shared/seed_26091602/source_v2/job.json
+source_training_timing_record,MedSA,Med-SA,v1,source,2,26091601,26091601,,MedSA/seed_26091601/source_v1,01_baseline/05_Training_Costs.csv,S25,MedSA | v1 | MedSA/seed_26091601/source_v1
+source_training_timing_record,MedSA,Med-SA,v2,source,2,26091601,26091601,,MedSA/seed_26091601/source_v2,01_baseline/05_Training_Costs.csv,S25,MedSA | v2 | MedSA/seed_26091601/source_v2
+source_training_timing_record,MedSA,Med-SA,v1,source,3,26091602,26091602,,MedSA/seed_26091602/source_v1,01_baseline/05_Training_Costs.csv,S25,MedSA | v1 | MedSA/seed_26091602/source_v1
+source_training_timing_record,MedSA,Med-SA,v2,source,3,26091602,26091602,,MedSA/seed_26091602/source_v2,01_baseline/05_Training_Costs.csv,S25,MedSA | v2 | MedSA/seed_26091602/source_v2
+source_training_timing_record,SAMLoRA,SAM-LoRA,v1,source,2,26091601,26091601,,SAMLoRA/seed_26091601/source_v1,01_baseline/05_Training_Costs.csv,S25,SAMLoRA | v1 | SAMLoRA/seed_26091601/source_v1
+source_training_timing_record,SAMLoRA,SAM-LoRA,v2,source,2,26091601,26091601,,SAMLoRA/seed_26091601/source_v2,01_baseline/05_Training_Costs.csv,S25,SAMLoRA | v2 | SAMLoRA/seed_26091601/source_v2
+source_training_timing_record,SAMLoRA,SAM-LoRA,v1,source,3,26091602,26091602,,SAMLoRA/seed_26091602/source_v1,01_baseline/05_Training_Costs.csv,S25,SAMLoRA | v1 | SAMLoRA/seed_26091602/source_v1
+source_training_timing_record,SAMLoRA,SAM-LoRA,v2,source,3,26091602,26091602,,SAMLoRA/seed_26091602/source_v2,01_baseline/05_Training_Costs.csv,S25,SAMLoRA | v2 | SAMLoRA/seed_26091602/source_v2
+source_training_timing_record,MedSegX,MedSegX,v1,source,1,26091600,26091601,,MedSegX/seed_26091601/source_v1,01_baseline/05_Training_Costs.csv,S25,MedSegX | v1 | MedSegX/seed_26091601/source_v1
+source_training_timing_record,MedSegX,MedSegX,v2,source,1,26091600,26091601,,MedSegX/seed_26091601/source_v2,01_baseline/05_Training_Costs.csv,S25,MedSegX | v2 | MedSegX/seed_26091601/source_v2
+source_training_timing_record,MedSegX,MedSegX,v1,source,2,26091601,26091602,,MedSegX/seed_26091602/source_v1,01_baseline/05_Training_Costs.csv,S25,MedSegX | v1 | MedSegX/seed_26091602/source_v1
+source_training_timing_record,MedSegX,MedSegX,v2,source,2,26091601,26091602,,MedSegX/seed_26091602/source_v2,01_baseline/05_Training_Costs.csv,S25,MedSegX | v2 | MedSegX/seed_26091602/source_v2
+source_training_timing_record,MedSegX,MedSegX,v1,source,3,26091602,26091603,,MedSegX/seed_26091603/source_v1,01_baseline/05_Training_Costs.csv,S25,MedSegX | v1 | MedSegX/seed_26091603/source_v1
+source_training_timing_record,MedSegX,MedSegX,v2,source,3,26091602,26091603,,MedSegX/seed_26091603/source_v2,01_baseline/05_Training_Costs.csv,S25,MedSegX | v2 | MedSegX/seed_26091603/source_v2
+source_training_timing_record,SAM-Adapter,SAM-Adapter,v2,source,2,26091601,26091601,,SAM-Adapter/seed_26091601/source_v2,01_baseline/05_Training_Costs.csv,S25,SAM-Adapter | v2 | SAM-Adapter/seed_26091601/source_v2
+source_training_timing_record,SAM-Adapter,SAM-Adapter,v2,source,3,26091602,26091602,,SAM-Adapter/seed_26091602/source_v2,01_baseline/05_Training_Costs.csv,S25,SAM-Adapter | v2 | SAM-Adapter/seed_26091602/source_v2
+source_training_timing_record,SAM2-UNet,SAM2-UNet,v1,source,2,26091601,26091601,,SAM2-UNet/seed_26091601/source_v1,01_baseline/05_Training_Costs.csv,S25,SAM2-UNet | v1 | SAM2-UNet/seed_26091601/source_v1
+source_training_timing_record,SAM2-UNet,SAM2-UNet,v2,source,2,26091601,26091601,,SAM2-UNet/seed_26091601/source_v2,01_baseline/05_Training_Costs.csv,S25,SAM2-UNet | v2 | SAM2-UNet/seed_26091601/source_v2
+source_training_timing_record,SAM2-UNet,SAM2-UNet,v1,source,3,26091602,26091602,,SAM2-UNet/seed_26091602/source_v1,01_baseline/05_Training_Costs.csv,S25,SAM2-UNet | v1 | SAM2-UNet/seed_26091602/source_v1
+source_training_timing_record,SAM2-UNet,SAM2-UNet,v2,source,3,26091602,26091602,,SAM2-UNet/seed_26091602/source_v2,01_baseline/05_Training_Costs.csv,S25,SAM2-UNet | v2 | SAM2-UNet/seed_26091602/source_v2
+source_training_timing_record,MoE-SAM,MoE-SAM,v2,source,1,26091600,26091601,,MoE-SAM/seed_26091601/source_v2,01_baseline/05_Training_Costs.csv,S25,MoE-SAM | v2 | MoE-SAM/seed_26091601/source_v2
+source_training_timing_record,MoE-SAM,MoE-SAM,v1,source,2,26091601,26091602,,MoE-SAM/seed_26091602/source_v1,01_baseline/05_Training_Costs.csv,S25,MoE-SAM | v1 | MoE-SAM/seed_26091602/source_v1
+source_training_timing_record,MoE-SAM,MoE-SAM,v2,source,2,26091601,26091602,,MoE-SAM/seed_26091602/source_v2,01_baseline/05_Training_Costs.csv,S25,MoE-SAM | v2 | MoE-SAM/seed_26091602/source_v2
+source_training_timing_record,MoE-SAM,MoE-SAM,v1,source,3,26091602,26091603,,MoE-SAM/seed_26091603/source_v1,01_baseline/05_Training_Costs.csv,S25,MoE-SAM | v1 | MoE-SAM/seed_26091603/source_v1
+source_training_timing_record,MoE-SAM,MoE-SAM,v2,source,3,26091602,26091603,,MoE-SAM/seed_26091603/source_v2,01_baseline/05_Training_Costs.csv,S25,MoE-SAM | v2 | MoE-SAM/seed_26091603/source_v2
+paired_ID_repeatability,Full+Shared,Full + Shared,v1,ID,1,26091600,,unrecorded,historical_run_1,02_main_3runs/02_Run_Results.csv,S28,Full+Shared | ID | historical_run_1
+paired_ID_repeatability,Full+Shared,Full + Shared,v1,ID,2,26091601,26091601,recorded,seed_26091601,02_main_3runs/02_Run_Results.csv,S28,Full+Shared | ID | seed_26091601
+paired_ID_repeatability,Full+Shared,Full + Shared,v1,ID,3,26091602,26091602,recorded,seed_26091602,02_main_3runs/02_Run_Results.csv,S28,Full+Shared | ID | seed_26091602

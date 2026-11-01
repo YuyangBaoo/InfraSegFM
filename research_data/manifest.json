@@ -1,0 +1,92 @@
+{
+  "paper_title": "Transferable Civil Infrastructure Defect Segmentation with Source-Aware Benchmarking and Routed SAM Adaptation",
+  "data_version": "1.1.0",
+  "data_status": "Zenodo revision draft; not published",
+  "archive_filename": "InfraSegFM_All_Experimental_Data.zip",
+  "archive_bytes": 167633429,
+  "archive_sha256": "f540d5faf007abef7106f4e13e147e6dc4276544969e7e9154442064711b7d3e",
+  "archive_md5": "94ff624335c429af8a9e4939e4fa05f3",
+  "archive_layout": {
+    "01_baseline": 6,
+    "02_main_3runs": 7,
+    "03_inference_routing": 26,
+    "04_jetson_full98": 9
+  },
+  "zenodo_all_versions_doi": "10.5281/zenodo.21510680",
+  "reserved_revision_doi": "10.5281/zenodo.23795715",
+  "tables": [
+    {
+      "file": "baseline_condition_summary.csv",
+      "source_archive_member": "01_baseline/01_Condition_Summary.csv",
+      "sha256": "858ab4af160cf77c1aa07f15ed1cb56b0db4fec551d0534215c726df4a543946",
+      "bytes": 56505
+    },
+    {
+      "file": "baseline_training_costs.csv",
+      "source_archive_member": "01_baseline/05_Training_Costs.csv",
+      "sha256": "f0de0b9bb921f1cddaf3294c0dac1e157f0dc93996127f5cd21894837daac236",
+      "bytes": 260022
+    },
+    {
+      "file": "main_condition_summary.csv",
+      "source_archive_member": "02_main_3runs/01_Condition_Summary.csv",
+      "sha256": "af687fb1bb5d02ebf2631faec322fac9712eac8305d56bfd2a738007a035598d",
+      "bytes": 17491
+    },
+    {
+      "file": "task_asset_map.csv",
+      "source_archive_member": "02_main_3runs/06_Task_Asset_Map.csv",
+      "sha256": "f81a09c4b9ebe64dc14756ca8e3e56c4cc0229d93a0a80e217cab6ba1ed2b78c",
+      "bytes": 1633
+    },
+    {
+      "file": "reported_run_seed_map.csv",
+      "source_archive_member": "02_main_3runs/07_Reported_Run_Seed_Map.csv",
+      "sha256": "b481de305a66489794e7b7fc03bf34ee943ae270adf10c20085b69fb72afa2ba",
+      "bytes": 18020
+    },
+    {
+      "file": "formal_prompt_summary.csv",
+      "source_archive_member": "03_inference_routing/01_Formal_Condition_Summary.csv",
+      "sha256": "81e16dfaf44ed0978efb0aa8cbecb10a69e3d5c94f9015c0ef0043b65dabafb4",
+      "bytes": 16268
+    },
+    {
+      "file": "finalized_head_mapping.csv",
+      "source_archive_member": "03_inference_routing/08_Finalized_Head_Mapping.csv",
+      "sha256": "16dd8ba5fb7e17b9cdbfc7ef5121f86ac7254029ad5704759717b22bb268bf9b",
+      "bytes": 1727
+    },
+    {
+      "file": "supplemental_baseline_prompt_summary.csv",
+      "source_archive_member": "03_inference_routing/10_Supplemental_Baseline_Summary.csv",
+      "sha256": "749b56fef59f39b8ccadb660d27fa6ec7fce5a21bdab1ed9e5014af8ca21cc69",
+      "bytes": 13420
+    },
+    {
+      "file": "supplemental_full_shared_prompt_summary.csv",
+      "source_archive_member": "03_inference_routing/11_Supplemental_Full_Shared_Summary.csv",
+      "sha256": "2cdb3d37e0fb539cc876fe173e11fb73fc0eac5bbf5ab14d904c1c966670e71b",
+      "bytes": 2746
+    },
+    {
+      "file": "source_training_times.csv",
+      "source_archive_member": "03_inference_routing/23_Source_Training_Times.csv",
+      "sha256": "a7b4280a167642d10b9544ade4b7fb2cdaa246ea8c36ff4bfd4ed02b8843704a",
+      "bytes": 3803
+    },
+    {
+      "file": "jetson_resource_summary.csv",
+      "source_archive_member": "04_jetson_full98/01_Resource_Summary.csv",
+      "sha256": "dc39a63f594930f5d088ce211b66d04692af43bd134d519a2c8194b1da3ed372",
+      "bytes": 8855
+    },
+    {
+      "file": "quality_head_training_costs.csv",
+      "source_archive_member": "04_jetson_full98/05_Quality_Head_Training_Costs.csv",
+      "sha256": "465af746d6888d45f4b43edc0afc8b1732e9d207fe766818c8d6962f01a36a67",
+      "bytes": 616
+    }
+  ],
+  "scientific_values_recalculated": false
+}

@@ -8,7 +8,7 @@
 Official implementation and release checkpoint for **InfraSegFM**, a
 SAM-based framework for open-world civil infrastructure defect segmentation.
 
-**Paper:** *A generalist foundation model and database for open-world civil infrastructure defect segmentation*
+**Paper:** *Transferable Civil Infrastructure Defect Segmentation with Source-Aware Benchmarking and Routed SAM Adaptation*
 
 **Authors:** Baoxian Li, Yuyang Bao, Si Chen, Mingwei Fang, Longsheng Bao,
 Jiakang Zhao, and Ling Yu
@@ -17,7 +17,7 @@ InfraSegFM freezes the SAM image and prompt encoders, then learns
 metadata- and style-conditioned routed residual adapters together with the SAM
 mask decoder. The repository provides the public release code, the InfraSegFM
 ViT-B checkpoint, paper-default configuration, synthetic demo data, and
-end-to-end scripts for training, evaluation, and prediction.
+entry points for training, labeled evaluation, and prediction.
 
 ## Highlights
 
@@ -27,7 +27,7 @@ end-to-end scripts for training, evaluation, and prediction.
   trainable routed residual adapters and mask decoder weights.
 - **Metadata/style-conditioned routing:** platform, hierarchy, task, source
   proxy, and online style statistics condition sparse expert selection.
-- **Reproducible release package:** checkpoint manifest, model card, citation
+- **Research release utilities:** checkpoint manifest, model card, citation
   metadata, demo data, and train/evaluate/predict entry points.
 - **Clear third-party boundary:** SAM source integration is documented and SAM
   weights are downloaded separately from the official Segment Anything release.
@@ -64,18 +64,54 @@ Click a figure to open the full-resolution image.
 
 ## Results
 
-Headline Dice scores reported in the manuscript:
+Full results from the revised manuscript's main reference evaluation, averaged
+across three independent training runs:
 
-| Setting | InfraSegFM Dice | Evaluation focus |
-| --- | ---: | --- |
-| In-distribution | 0.7134 | All-task supervised benchmark |
-| CrossSite zero-shot | 0.7771 | Source and style transfer |
-| CrossTask zero-shot | 0.5955 | New task and appearance distributions |
-| RealWorld zero-shot | 0.5420 | Field-like noise, clutter, and degradation |
+| Setting | Target-training data | Image-mean Dice | Task-macro Dice | Protocol |
+| --- | --- | ---: | ---: | --- |
+| In-distribution | Source training | 0.7134 | 0.7158 | v1 |
+| CrossSite | 0% | 0.7755 | 0.5747 | v1 |
+| CrossTask | 0% | 0.5995 | 0.6331 | v2 |
+| RealWorld | 0% | 0.5418 | 0.5993 | v1 |
 
-Detailed experimental plots and qualitative comparisons are reported in the
-manuscript. The README keeps the result summary compact so the release page
-stays readable.
+Image-mean Dice averages per-image scores. Task-macro Dice first averages within
+each recorded task-context group and then gives groups equal weight. Values are
+shown to four decimal places; the result archive retains full precision.
+CrossSite, CrossTask, and RealWorld rows use 0% target-training data. Protocols
+v1/v2 identify the source-training/evaluation configuration; the replication
+unit for this table is an independent training run.
+
+Inference-time candidate selection, box perturbation, full-image boxes, and
+empty spatial prompts are reported separately in the revised manuscript and
+numerical archive.
+
+## Revision data and prompt protocols
+
+The current manuscript's compact numerical tables are in
+[`research_data/`](research_data/), with source members and full-precision
+checksums in [`research_data/manifest.json`](research_data/manifest.json).
+The complete 48-CSV archive is `InfraSegFM_All_Experimental_Data.zip`.
+Its Zenodo v1.1.0 revision remains a draft; the manifest records its reserved
+version DOI and the existing [all-versions record](https://doi.org/10.5281/zenodo.21510680).
+
+The main reference evaluator, `tools/evaluate.py`, retains GT-Dice Oracle
+selection. The revision's finalized-quality-head and spatial-prompt protocols
+use [`tools/run_prompt_protocol.py`](tools/run_prompt_protocol.py) and the
+recorded profile/asset bindings. See
+[`docs/PROMPT_EVALUATION.md`](docs/PROMPT_EVALUATION.md) for the actual frozen
+runtime, fixed/full-image/empty prompt conditions, and asset setup.
+
+To verify the saved prompt results without executing a model:
+
+```bash
+python tools/reproduce_prompt_results.py --data-zip /path/to/InfraSegFM_All_Experimental_Data.zip --output-dir runs/prompt_tables
+```
+
+The four finalized heads are supplied under
+`checkpoints/prompt_protocol/inputs/heads/`. Full v1 and Shared v1 source
+checkpoints are supplied under `checkpoints/prompt_protocol/inputs/models/`.
+The profile manifest records the required v2 checkpoint and SAM compatibility
+payload fingerprints for the remaining setup.
 
 ## Release Contents
 
@@ -102,6 +138,11 @@ InfraSegFM/
     train.py
     evaluate.py
     predict.py
+    run_prompt_protocol.py
+    reproduce_prompt_results.py
+  research_data/                    # current manuscript tables and archive manifest
+  reproduction/prompt_runtime/      # frozen prompt-study implementation
+  docs/PROMPT_EVALUATION.md
   CITATION.cff
   MODEL_CARD.md
   requirements.txt
@@ -145,12 +186,18 @@ For CPU-only machines, install the official CPU build of PyTorch, then run
 
 ## Checkpoints
 
-This repository redistributes the InfraSegFM release checkpoint only:
+The reference Full checkpoint and the prompt-protocol assets are supplied
+under `checkpoints/`. Exact profile bindings are listed in
+[`checkpoints/prompt_protocol/manifest.json`](checkpoints/prompt_protocol/manifest.json).
 
 ```text
 checkpoints/
   infrasegfm_vit_b.pth
   manifest.json
+  prompt_protocol/
+    manifest.json
+    inputs/models/                # supplied Full v1 and Shared v1 source checkpoints
+    inputs/heads/                 # four finalized quality heads
 ```
 
 Download the required SAM ViT-B checkpoint separately from Meta's official
@@ -301,8 +348,7 @@ Aerial_RoadCrack
 ```
 
 For new tasks or platforms, update [infrasegfm/taxonomy.py](infrasegfm/taxonomy.py).
-This keeps the hierarchical metadata explicit and makes checkpoints
-reproducible.
+The taxonomy supplies the metadata indices used by model inputs.
 
 ## Train
 
@@ -357,7 +403,8 @@ python tools/train.py \
 
 ## Evaluate Labeled Data
 
-Use this path when your data has masks:
+The reference evaluator selects the highest-Dice candidate using the evaluation
+labels. Use this path for the labeled reference protocol:
 
 ```bash
 python tools/evaluate.py \
@@ -369,7 +416,7 @@ python tools/evaluate.py \
   --batch_size 50 \
   --num_workers 2 \
   --device cuda:0 \
-  --metrics dsc hd \
+  --metrics dsc \
   --out_dir runs/eval_val
 ```
 
@@ -407,28 +454,11 @@ runs/predict_my_images/masks/
 If your task is not in the taxonomy, add it to
 [infrasegfm/taxonomy.py](infrasegfm/taxonomy.py) first.
 
-## Compatibility
+## Checkpoint Format
 
-This release is intentionally kept compatible with the original training and
-evaluation workflow. Use the release checkpoint with the original evaluator:
-
-```bash
-python evaluate_internal.py \
-  --data_path ./playground/eval/ID \
-  --checkpoint ./InfraSegFM/checkpoints \
-  --model_type vit_b \
-  --model_weight ./InfraSegFM/checkpoints/infrasegfm_vit_b.pth \
-  --device cuda:0 \
-  --device_ids 0 \
-  --batch_size 50 \
-  --num_workers 2 \
-  --pin_memory 0 \
-  --metric dsc hd
-```
-
-Checkpoints produced by `tools/train.py` save the same adapter, context
-embedding, style projection, gate, and mask decoder keys used by the original
-`pretrain.py` / `finetune.py`.
+Checkpoints produced by `tools/train.py` save adapter, context embedding, style
+projection, gate, and mask decoder parameters using the release model's state
+keys. The checkpoint identity is recorded in `checkpoints/manifest.json`.
 
 ## Reproducibility Checklist
 
@@ -451,6 +481,25 @@ private or full-scale datasets
 ```
 
 ## Data Availability
+
+The revised numerical archive is `InfraSegFM_All_Experimental_Data.zip`, with
+48 CSV tables organized directly under four folders:
+
+| Folder | Contents | CSV tables |
+| --- | --- | ---: |
+| `01_baseline` | Comparison-model results and recorded costs | 6 |
+| `02_main_3runs` | Full/Shared/ablation results and reporting maps | 7 |
+| `03_inference_routing` | Candidate selection, prompts, routing, and head calibration | 26 |
+| `04_jetson_full98` | Device measurements, model interfaces, and fixed-image records | 9 |
+
+The archive includes the supplementary task-to-asset and reported-seed maps.
+Original execution labels remain traceable alongside the manuscript reporting
+labels.
+
+Published archive versions are listed at the [Zenodo concept
+record](https://doi.org/10.5281/zenodo.21510680). The revised v1.1.0 upload is
+being retained as a draft for file verification and has not been publicly
+released.
 
 The full InfraSegDB benchmark is not included in this repository. This release
 provides the implementation, the InfraSegFM checkpoint, paper-default
@@ -481,7 +530,7 @@ GitHub renders citation metadata from [CITATION.cff](CITATION.cff).
 
 ```bibtex
 @misc{li2026infrasegfm,
-  title  = {A generalist foundation model and database for open-world civil infrastructure defect segmentation},
+  title  = {Transferable Civil Infrastructure Defect Segmentation with Source-Aware Benchmarking and Routed SAM Adaptation},
   author = {Li, Baoxian and Bao, Yuyang and Chen, Si and Fang, Mingwei and Bao, Longsheng and Zhao, Jiakang and Yu, Ling},
   year   = {2026},
   note   = {Manuscript}

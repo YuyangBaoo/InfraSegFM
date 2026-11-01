@@ -1,6 +1,6 @@
 cff-version: 1.2.0
 message: "If you use InfraSegFM or the release checkpoint, please cite this work."
-title: "A generalist foundation model and database for open-world civil infrastructure defect segmentation"
+title: "Transferable Civil Infrastructure Defect Segmentation with Source-Aware Benchmarking and Routed SAM Adaptation"
 authors:
   - family-names: Li
     given-names: Baoxian

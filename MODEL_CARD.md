@@ -1,5 +1,7 @@
 # InfraSegFM Model Card
 
+**Paper:** *Transferable Civil Infrastructure Defect Segmentation with Source-Aware Benchmarking and Routed SAM Adaptation*
+
 ## Model Details
 
 InfraSegFM is a SAM-based segmentation framework for civil infrastructure
@@ -29,23 +31,30 @@ review, calibration on the target inspection protocol, and independent validatio
 
 The accompanying manuscript describes InfraSegDB, a 179,094 image-mask benchmark
 from 40 source datasets and six acquisition platforms. InfraSegFM is evaluated
-under in-distribution, CrossSite, CrossTask, RealWorld, and few-shot settings.
+under in-distribution, CrossSite, CrossTask, RealWorld, and limited-target-data
+adaptation settings.
 
-Headline Dice scores reported in the manuscript:
+Full main-reference results are means over three independent training runs:
 
-| Setting | Dice |
-| --- | ---: |
-| In-distribution | 0.7134 |
-| CrossSite zero-shot | 0.7771 |
-| CrossTask zero-shot | 0.5955 |
-| RealWorld zero-shot | 0.5420 |
+| Setting | Target-training data | Image-mean Dice | Task-macro Dice | Protocol |
+| --- | --- | ---: | ---: | --- |
+| In-distribution | Source training | 0.7134 | 0.7158 | v1 |
+| CrossSite | 0% | 0.7755 | 0.5747 | v1 |
+| CrossTask | 0% | 0.5995 | 0.6331 | v2 |
+| RealWorld | 0% | 0.5418 | 0.5993 | v1 |
+
+Image-mean Dice gives images equal weight; task-macro Dice first averages within
+each task-context group and then gives groups equal weight. Transfer rows use
+0% target-training data. The complete result tables retain full precision and
+the manuscript reporting-seed crosswalk.
 
 The synthetic `demo_data/` included in this repository is only for software
 smoke testing and is not used for reporting model performance.
 
 ## Limitations
 
-- The release requires a box prompt or the default full-image box prompt.
+- `tools/predict.py` uses a full-image box by default; the revision evaluator
+  exposes full-image-box and empty-spatial-prompt conditions.
 - Performance can degrade under unseen sensors, unusual materials, severe motion
   blur, low contrast, occlusion, or annotation protocols that differ from the
   benchmark taxonomy.
