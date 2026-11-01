@@ -76,42 +76,37 @@ across three independent training runs:
 
 Image-mean Dice averages per-image scores. Task-macro Dice first averages within
 each recorded task-context group and then gives groups equal weight. Values are
-shown to four decimal places; the result archive retains full precision.
+shown to four decimal places.
 CrossSite, CrossTask, and RealWorld rows use 0% target-training data. Protocols
 v1/v2 identify the source-training/evaluation configuration; the replication
 unit for this table is an independent training run.
 
-Inference-time candidate selection, box perturbation, full-image boxes, and
-empty spatial prompts are reported separately in the revised manuscript and
-numerical archive.
+## Prompt evaluation
 
-## Revision data and prompt protocols
-
-The current manuscript's compact numerical tables are in
-[`research_data/`](research_data/), with source members and full-precision
-checksums in [`research_data/manifest.json`](research_data/manifest.json).
-The complete 48-CSV archive is `InfraSegFM_All_Experimental_Data.zip`.
-Its Zenodo v1.1.0 revision remains a draft; the manifest records its reserved
-version DOI and the existing [all-versions record](https://doi.org/10.5281/zenodo.21510680).
-
-The main reference evaluator, `tools/evaluate.py`, retains GT-Dice Oracle
-selection. The revision's finalized-quality-head and spatial-prompt protocols
-use [`tools/run_prompt_protocol.py`](tools/run_prompt_protocol.py) and the
-recorded profile/asset bindings. See
-[`docs/PROMPT_EVALUATION.md`](docs/PROMPT_EVALUATION.md) for the actual frozen
-runtime, fixed/full-image/empty prompt conditions, and asset setup.
-
-To verify the saved prompt results without executing a model:
-
-```bash
-python tools/reproduce_prompt_results.py --data-zip /path/to/InfraSegFM_All_Experimental_Data.zip --output-dir runs/prompt_tables
-```
+The labeled reference evaluator, `tools/evaluate.py`, uses GT-Dice Oracle
+selection. For finalized-quality-head selection and controlled spatial inputs,
+use [`tools/run_prompt_protocol.py`](tools/run_prompt_protocol.py) with the
+profile definitions in
+[`configs/prompt_protocol_profiles.json`](configs/prompt_protocol_profiles.json).
 
 The four finalized heads are supplied under
 `checkpoints/prompt_protocol/inputs/heads/`. Full v1 and Shared v1 source
 checkpoints are supplied under `checkpoints/prompt_protocol/inputs/models/`.
-The profile manifest records the required v2 checkpoint and SAM compatibility
-payload fingerprints for the remaining setup.
+The profile manifest lists each model/head fingerprint and the required
+compatibility assets. Follow
+[`docs/PROMPT_EVALUATION.md`](docs/PROMPT_EVALUATION.md) to set up the model,
+head, SAM backbone, and input directories.
+
+Inspect the profiles and the command for a fixed full-image box:
+
+```bash
+python tools/run_prompt_protocol.py profiles
+python tools/run_prompt_protocol.py full-image --workdir checkpoints/prompt_protocol --profile full_v1 --eval-root /path/to/eval --sam-checkpoint /path/to/sam_vit_b_01ec64.pth --output-dir runs/full_v1_full_image --dry-run
+```
+
+The same entry point exposes `prepare`, `preflight`, `evaluate`, `aggregate`,
+and `empty` commands. The protocol guide explains the corresponding inputs and
+candidate selectors.
 
 ## Release Contents
 
@@ -139,8 +134,6 @@ InfraSegFM/
     evaluate.py
     predict.py
     run_prompt_protocol.py
-    reproduce_prompt_results.py
-  research_data/                    # current manuscript tables and archive manifest
   reproduction/prompt_runtime/      # frozen prompt-study implementation
   docs/PROMPT_EVALUATION.md
   CITATION.cff
@@ -480,32 +473,12 @@ runs/
 private or full-scale datasets
 ```
 
-## Data Availability
+## Input data
 
-The revised numerical archive is `InfraSegFM_All_Experimental_Data.zip`, with
-48 CSV tables organized directly under four folders:
-
-| Folder | Contents | CSV tables |
-| --- | --- | ---: |
-| `01_baseline` | Comparison-model results and recorded costs | 6 |
-| `02_main_3runs` | Full/Shared/ablation results and reporting maps | 7 |
-| `03_inference_routing` | Candidate selection, prompts, routing, and head calibration | 26 |
-| `04_jetson_full98` | Device measurements, model interfaces, and fixed-image records | 9 |
-
-The archive includes the supplementary task-to-asset and reported-seed maps.
-Original execution labels remain traceable alongside the manuscript reporting
-labels.
-
-Published archive versions are listed at the [Zenodo concept
-record](https://doi.org/10.5281/zenodo.21510680). The revised v1.1.0 upload is
-being retained as a draft for file verification and has not been publicly
-released.
-
-The full InfraSegDB benchmark is not included in this repository. This release
-provides the implementation, the InfraSegFM checkpoint, paper-default
-configuration, and a synthetic mini benchmark for reproducibility checks. Use
-`demo_data/` only to verify the software pipeline, not to report model
-performance.
+Prepare your image/mask pairs using the [dataset format](#dataset-format)
+above. Obtain benchmark images and annotations from their original providers
+under the applicable terms. The synthetic `demo_data/` provides a small input
+set for checking the training, evaluation, and prediction commands.
 
 ## Third-party Code
 

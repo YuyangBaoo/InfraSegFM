@@ -2,8 +2,6 @@
 *.pt filter=lfs diff=lfs merge=lfs -text
 reproduction/prompt_runtime/** -text
 reproduction/prompt_protocol/** -text
-research_data/** -text
 checkpoints/prompt_protocol/inputs/heads/full_v1/manifest.json -text
 tools/run_prompt_protocol.py -text
-tools/reproduce_prompt_results.py -text
 configs/prompt_protocol_profiles.json -text

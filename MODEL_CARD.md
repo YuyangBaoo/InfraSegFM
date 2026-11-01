@@ -45,8 +45,8 @@ Full main-reference results are means over three independent training runs:
 
 Image-mean Dice gives images equal weight; task-macro Dice first averages within
 each task-context group and then gives groups equal weight. Transfer rows use
-0% target-training data. The complete result tables retain full precision and
-the manuscript reporting-seed crosswalk.
+0% target-training data. Candidate selectors and spatial inputs follow the
+corresponding evaluation entry point.
 
 The synthetic `demo_data/` included in this repository is only for software
 smoke testing and is not used for reporting model performance.

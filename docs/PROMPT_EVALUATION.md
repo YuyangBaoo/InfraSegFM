@@ -3,17 +3,6 @@
 `tools/evaluate.py` retains the reference GT-Dice Oracle selector. The revision
 prompt experiments use the separate, frozen entry point below.
 
-## Saved-result reconstruction
-
-The Zenodo revision data ZIP has four top-level result directories. Run
-`tools/reproduce_prompt_results.py` to reconstruct the candidate-selection and
-prompt-condition summaries from the recorded per-image rows. This command
-uses Python's standard library and does not perform model inference:
-
-```bash
-python tools/reproduce_prompt_results.py --data-zip /path/to/InfraSegFM_All_Experimental_Data.zip --output-dir runs/prompt_tables
-```
-
 ## Fixed model and head assets
 
 The four profile definitions in `configs/prompt_protocol_profiles.json` bind
